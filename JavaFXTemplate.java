@@ -170,7 +170,7 @@ public class JavaFXTemplate extends Application {
 	}
 	
 	private void buildExit(Stage stage) {
-		System.out.println("inside build exit");
+		stage.close();
 	}
 	
 }
