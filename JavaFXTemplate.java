@@ -112,21 +112,34 @@ public class JavaFXTemplate extends Application {
 
 		Menu menu = new Menu("Menu");
 		MenuBar menuBar = new MenuBar();
-		
+
 		MenuItem[] menuItems = new MenuItem[4];
-		
+		EventHandler[] events = new EventHandler[4];
+
 		menuItems[0] = new MenuItem("Play Game");
 		menuItems[1] = new MenuItem("Winning Odds");
 		menuItems[2] = new MenuItem("New Look");
 		menuItems[3] = new MenuItem("Exit");
-		
+
+		EventHandler<ActionEvent> toPlay = e -> {buildBetCard(stage);};
+		EventHandler<ActionEvent> toOdds = e -> {buildWinningOdds(stage);};
+		EventHandler<ActionEvent> appNewLook = e -> {}; // do something to applyNewLook
+		EventHandler<ActionEvent> toExit = e -> {buildExit(stage);};
+
+		events[0] = toPlay;
+		events[1] = toOdds;
+		events[2] = appNewLook;
+		events[3] = toExit;
+
 		menuBar.getMenus().add(menu);
-		
+
 		for(int i = 0; i < menuItems.length; i++) {
+			menuItems[i].setOnAction(events[i]);
 			menu.getItems().add(menuItems[i]);
 		}
-		
+
 		return menuBar;
+
 	}
 	
 	private void buildBetCard(Stage stage) {
