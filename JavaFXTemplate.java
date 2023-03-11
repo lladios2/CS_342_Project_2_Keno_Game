@@ -33,13 +33,11 @@ public class JavaFXTemplate extends Application {
 		// TODO Auto-generated method stub
 		primaryStage.setTitle("Keno");
 
-	
-//		Scene scene = new Scene(vbMenu, 700, 700);
-		primaryStage.setScene(startPage());
+		startPage(primaryStage);
 		primaryStage.show();
 	}
 	
-	private Scene startPage() {
+	private void startPage(Stage stage) {
 		
 		Text welcome = new Text("Welcome to Keno!");
 		welcome.setFont(new Font(15));
@@ -51,7 +49,7 @@ public class JavaFXTemplate extends Application {
 			@Override
 			public void handle(ActionEvent event) {
 				// TODO Auto-generated method stub
-				buildBetCard();
+				buildBetCard(stage);
 			}
 		
 		};
@@ -60,22 +58,21 @@ public class JavaFXTemplate extends Application {
 		
 		VBox vbStartPage = new VBox(10, welcome, playButton);
 		
-		MenuBar mb = buildMenu();
+		MenuBar mb = buildMenu(stage);
 		VBox vbMenu = new VBox(mb);
 		
 		BorderPane bp = new BorderPane(vbStartPage);
 		
-		bp.setTop(vbMenu);
-		
 		vbStartPage.setAlignment(Pos.CENTER);
 		
+		bp.setTop(vbMenu);
 		
 		Scene startPage = new Scene(bp, 700, 700);
-		
-		return startPage;
+		stage.setScene(startPage);
+		stage.show();
 	}
 	
-	private MenuBar buildMenu() {
+	private MenuBar buildMenu(Stage stage) {
 
 		Menu menu = new Menu("Menu");
 		MenuBar menuBar = new MenuBar();
@@ -88,10 +85,10 @@ public class JavaFXTemplate extends Application {
 		menuItems[2] = new MenuItem("New Look");
 		menuItems[3] = new MenuItem("Exit");
 		
-		EventHandler<ActionEvent> toRules = e -> {buildRules();};
-		EventHandler<ActionEvent> toOdds = e -> {buildWinningOdds();};
+		EventHandler<ActionEvent> toRules = e -> {buildRules(stage);};
+		EventHandler<ActionEvent> toOdds = e -> {buildWinningOdds(stage);};
 		EventHandler<ActionEvent> appNewLook = e -> {}; // do something to applyNewLook
-		EventHandler<ActionEvent> toExit = e -> {buildExit();};
+		EventHandler<ActionEvent> toExit = e -> {buildExit(stage);};
 		
 		events[0] = toRules;
 		events[1] = toOdds;
@@ -132,23 +129,25 @@ public class JavaFXTemplate extends Application {
 		return menuBar;
 	}
 	
-	private Scene buildBetCard() {
-		return null;
+	private void buildBetCard(Stage stage) {
+		System.out.println("inside build bet card");
 	}
 	
-	private Scene buildRules() {
+	private void buildRules(Stage stage) {
 		
 		//use buildMenu2() for this page's menu bar
-		return null;
+		System.out.println("inside build rules");
+		
 	}
 	
-	private Scene buildWinningOdds() {
+	private void buildWinningOdds(Stage stage) {
 		//use buildMenu2() for this page's menu bar
-		return null;
+		System.out.println("inside build winning odds");
+		
 	}
 	
-	private Scene buildExit() {
-		return null;
+	private void buildExit(Stage stage) {
+		System.out.println("inside build exit");
 	}
 	
 }
