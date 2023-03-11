@@ -108,7 +108,7 @@ public class JavaFXTemplate extends Application {
 		return menuBar;
 	}
 	
-	private MenuBar buildMenu2() {
+	private MenuBar buildMenu2(Stage stage) {
 
 		Menu menu = new Menu("Menu");
 		MenuBar menuBar = new MenuBar();
