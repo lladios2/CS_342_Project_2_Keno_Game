@@ -134,10 +134,33 @@ public class JavaFXTemplate extends Application {
 	}
 	
 	private void buildRules(Stage stage) {
-		
-		//use buildMenu2() for this page's menu bar
-		System.out.println("inside build rules");
-		
+
+		Text heading = new Text("Rules");
+		heading.setFont(new Font(15));
+
+		Text ruleText = new Text("\n" +
+				"Wager by choosing a set amount of numbers (pick 2 numbers, pick 10 numbers, etc) ranging from 1-80\n" +
+				"The player can choose to have the numbers randomly generated.\n" +
+				"After player has chosen, 20 numbers are drawn between 1-80 with no duplicates.\n" +
+				"Win by matching a set amount of numbers to the numbers drawn. ");
+		ruleText.setFont(new Font(15));
+
+		VBox vbRules = new VBox(10, heading, ruleText);
+
+		MenuBar mb = buildMenu2(stage);
+		VBox vbMenu = new VBox(mb);
+
+		BorderPane bpRules = new BorderPane(vbRules);
+
+		bpRules.setTop(vbMenu);
+
+		vbRules.setAlignment(Pos.CENTER);
+
+
+		Scene rulesPage = new Scene(bpRules, 700, 700);
+
+		stage.setScene(rulesPage);
+		stage.show();
 	}
 	
 	private void buildWinningOdds(Stage stage) {
