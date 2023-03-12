@@ -174,17 +174,59 @@ public class JavaFXTemplate extends Application {
 				"The player can choose to have the numbers randomly generated.\n" +
 				"After player has chosen, 20 numbers are drawn between 1-80 with no duplicates.\n" +
 				"Win by matching a set amount of numbers to the numbers drawn. ");
-		ruleText.setFont(new Font(15));
+		ruleText.setFont(new Font(13));
 		ruleText.setWrappingWidth(500);
 		
 		Label matchPrizes = new Label("Match Prizes");
 		matchPrizes.setFont(Font.font(null, FontWeight.BOLD, 15));
-		Text prize = new Text("4\t\t$75 \n\n3\t\t$10 \n\n2\t\t$5 \n\n1\t\t$1 \n\n0\t\t$0");
 
 		VBox vbRules = new VBox(heading, ruleText);
-		VBox vbPrize = new VBox(10, matchPrizes, prize);
 		
-		VBox rulesAndPrizes = new VBox(50, vbRules, vbPrize);
+		Text header1 = new Text("Numbers Picked");
+		Text header2 = new Text("Numbers Matched");
+		Text header3 = new Text("Payout");
+		
+		
+		HBox headers = new HBox(60, header1, header2, header3);
+		
+		
+		VBox numsPicked = new VBox(25);
+		numsPicked.getChildren().add(new Text("1 Number"));
+		numsPicked.getChildren().add(new Text("4 Numbers\n"));
+		numsPicked.getChildren().add(new Text("8 Numbers\n\n\n"));
+		numsPicked.getChildren().add(new Text("10 Numbers"));
+		
+		
+		VBox numsMatched = new VBox(8);
+		
+		Text col2One = new Text("1\n0");
+		Text col2Two = new Text("4\n3\n2");
+		Text col2Three = new Text("8\n7\n6\n5\n4");
+		Text col2Four = new Text("10\n9\n8\n7\n6\n5\n0");
+		
+		numsMatched.getChildren().add(col2One);
+		numsMatched.getChildren().add(col2Two);
+		numsMatched.getChildren().add(col2Three);
+		numsMatched.getChildren().add(col2Four);
+		
+		VBox payout = new VBox(8);
+		
+		Text col3One = new Text("$1\n$0");
+		Text col3Two = new Text("$50\n$5\n$1");
+		Text col3Three = new Text("$15,000\n$400\n$50\n$10\n$2");
+		Text col3Four = new Text("$200,000\n$10,000\n$500\n$50\n$10\n$3\n$3");
+		
+		payout.getChildren().add(col3One);
+		payout.getChildren().add(col3Two);
+		payout.getChildren().add(col3Three);
+		payout.getChildren().add(col3Four);
+		
+		HBox table = new HBox(120, numsPicked, numsMatched, payout);
+		
+		VBox vbPrize = new VBox(10, matchPrizes, headers, table);
+		
+		
+		VBox rulesAndPrizes = new VBox(30, vbRules, vbPrize);
 
 		MenuBar mb = buildMenu2(stage);
 		VBox vbMenu = new VBox(mb);
@@ -193,7 +235,7 @@ public class JavaFXTemplate extends Application {
 
 		bpRules.setTop(vbMenu);
 
-		rulesAndPrizes.setPadding(new Insets(120, 0, 0, 120));
+		rulesAndPrizes.setPadding(new Insets(80, 0, 0, 120));
 
 		Scene rulesPage = new Scene(bpRules, DIMX, DIMY);
 
@@ -201,6 +243,11 @@ public class JavaFXTemplate extends Application {
 		stage.show();
 	}
 	
+	
+	/**
+	 * Odds data gathered from https://casinosnet.com/keno-odds/
+	 * @param stage
+	 */
 	private void buildWinningOdds(Stage stage) {
 		Label winningOdds = new Label("Winning Odds");
 		winningOdds.setFont(Font.font(null, FontWeight.BOLD, 17));
@@ -214,20 +261,19 @@ public class JavaFXTemplate extends Application {
 		
 		//numsPicked column
 		VBox numsPicked = new VBox(49);
-		ArrayList<Text> col1 = new ArrayList<Text>();
-		for(int i = 1; i < 5; i++) {
-			col1.add(new Text(Integer.toString(i) + " Number(s)"));
-			numsPicked.getChildren().add(col1.get(i - 1));
-		}
+		numsPicked.getChildren().add(new Text("1 Number"));
+		numsPicked.getChildren().add(new Text("4 Numbers\n\n"));
+		numsPicked.getChildren().add(new Text("8 Numbers\n\n\n\n\n\n"));
+		numsPicked.getChildren().add(new Text("10 Numbers"));
+		
 		
 		//numsMatched column
-		
 		VBox numsMatched = new VBox(17);
 		
 		Text col2One = new Text("1\n\n0");
-		Text col2Two = new Text("2\n\n1");
-		Text col2Three = new Text("3\n\n2");
-		Text col2Four = new Text("4\n\n3\n\n2");
+		Text col2Two = new Text("4\n\n3\n\n2");
+		Text col2Three = new Text("8\n\n7\n\n6\n\n5\n\n4");
+		Text col2Four = new Text("10\n\n9\n\n8\n\n7\n\n6\n\n5\n\n0");
 		
 	
 		numsMatched.getChildren().add(col2One);
@@ -240,9 +286,9 @@ public class JavaFXTemplate extends Application {
 		VBox odds = new VBox(17);
 		
 		Text col3One = new Text("1 in 4\n\n1 in 3.33");
-		Text col3Two = new Text("1 in 16.63\n\n1 in 2.63");
-		Text col3Three = new Text("1 in 72.07\n\n1 in 7.20");
-		Text col3Four = new Text("1 in 326\n\n1 in 23.12\n\n1 in 4.70");
+		Text col3Two = new Text("1 in 326\n\n1 in 23.12\n\n1 in 4.70");
+		Text col3Three = new Text("1 in 230,114\n\n1 in 6,232.27\n\n1 in 422.53\n\n1 in 54.64\n\n1 in 12.27");
+		Text col3Four = new Text("1 in 8,911,711\n\n1 in 163.381\n\n1 in 7,384\n\n1 in 621\n\n1 in 87.11\n\n1 in 19.44\n\n1 in 21.84");
 		
 		odds.getChildren().add(col3One);
 		odds.getChildren().add(col3Two);
@@ -262,7 +308,7 @@ public class JavaFXTemplate extends Application {
 		
 		bpOdds.setTop(vbMenu);
 		
-		oddsText.setPadding(new Insets(150, 0, 0, 150));
+		oddsText.setPadding(new Insets(30, 0, 0, 150));
 		
 		
 		Scene winOdds = new Scene(bpOdds, DIMX, DIMY);
