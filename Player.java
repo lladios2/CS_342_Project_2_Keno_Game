@@ -12,6 +12,11 @@ public class Player {
 	public int getWinnings() {
 		return totalWinnings;
 	}
+	
+	//adds picked number to list of player picks on their betcard
+	public void addPick(int i) {
+		bc.getNumsPicked().add(i);
+	}
 
 	public void setTotalWinnings(int newTotal) {
 		totalWinnings = newTotal;
