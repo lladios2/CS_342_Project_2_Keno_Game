@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,7 +24,9 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -34,6 +37,8 @@ public class JavaFXTemplate extends Application {
 	
 	private final int DIMY = 700;
 	private final int DIMX = 700;
+	private int currColor;
+	private Pane rootPane;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -45,6 +50,12 @@ public class JavaFXTemplate extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		primaryStage.setTitle("Keno");
+		
+		
+		currColor = 0;
+		rootPane = new Pane();
+		
+
 
 		startPage(primaryStage);
 		primaryStage.show();
@@ -80,6 +91,7 @@ public class JavaFXTemplate extends Application {
 		
 		bp.setTop(vbMenu);
 		
+		rootPane = bp;
 		Scene startPage = new Scene(bp, DIMX, DIMY);
 		stage.setScene(startPage);
 		stage.show();
@@ -100,7 +112,7 @@ public class JavaFXTemplate extends Application {
 		
 		EventHandler<ActionEvent> toRules = e -> {buildRules(stage);};
 		EventHandler<ActionEvent> toOdds = e -> {buildWinningOdds(stage);};
-		EventHandler<ActionEvent> appNewLook = e -> {}; // do something to applyNewLook
+		EventHandler<ActionEvent> appNewLook = e -> {appNL(rootPane);}; // do something to applyNewLook
 		EventHandler<ActionEvent> toExit = e -> {buildExit(stage);};
 		
 		events.add(toRules);
@@ -139,7 +151,7 @@ public class JavaFXTemplate extends Application {
 		EventHandler<ActionEvent> toPlay = e -> {buildBetCard(stage);};
 		EventHandler<ActionEvent> toOdds = e -> {buildWinningOdds(stage);};
 		EventHandler<ActionEvent> toRules = e -> {buildRules(stage);};
-		EventHandler<ActionEvent> appNewLook = e -> {}; // do something to applyNewLook
+		EventHandler<ActionEvent> appNewLook = e -> {appNL(rootPane);}; // do something to applyNewLook
 		EventHandler<ActionEvent> toExit = e -> {buildExit(stage);};
 
 		events.add(toPlay);
@@ -157,6 +169,30 @@ public class JavaFXTemplate extends Application {
 
 		return menuBar;
 
+	}
+	
+	private void appNL(Pane bp) {
+		
+		//start over and reuse colors
+		if(currColor == 4) {
+			currColor = 0;
+		}
+		
+		
+		if(currColor == 0) {
+			bp.setStyle("-fx-background-color: pink;");
+		}
+		else if(currColor == 1){
+			bp.setStyle("-fx-background-color: lavender;");
+		}
+		else if(currColor == 2) {
+			bp.setStyle("-fx-background-color: papayawhip;");
+		}
+		else {
+			bp.setStyle("-fx-background-color: powderblue;");
+		}
+		currColor++;
+		
 	}
 	
 	private void buildBetCard(Stage stage) {
@@ -237,6 +273,8 @@ public class JavaFXTemplate extends Application {
 
 		rulesAndPrizes.setPadding(new Insets(80, 0, 0, 120));
 
+		
+		rootPane = bpRules;
 		Scene rulesPage = new Scene(bpRules, DIMX, DIMY);
 
 		stage.setScene(rulesPage);
@@ -308,9 +346,9 @@ public class JavaFXTemplate extends Application {
 		
 		bpOdds.setTop(vbMenu);
 		
-		oddsText.setPadding(new Insets(30, 0, 0, 150));
+		oddsText.setPadding(new Insets(30, 0, 0, 120));
 		
-		
+		rootPane = bpOdds;
 		Scene winOdds = new Scene(bpOdds, DIMX, DIMY);
 		stage.setScene(winOdds);
 		stage.show();
