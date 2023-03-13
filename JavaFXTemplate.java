@@ -26,6 +26,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -39,6 +40,7 @@ public class JavaFXTemplate extends Application {
 	private final int DIMX = 700;
 	private int currColor;
 	private Pane rootPane;
+	private Keno game;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -54,6 +56,7 @@ public class JavaFXTemplate extends Application {
 		
 		currColor = 0;
 		rootPane = new Pane();
+		game = new Keno();
 		
 
 
@@ -132,7 +135,8 @@ public class JavaFXTemplate extends Application {
 		
 		return menuBar;
 	}
-	
+
+	// buildMenu2: build menu for UI where play button is now included
 	private MenuBar buildMenu2(Stage stage) {
 
 		Menu menu = new Menu("Menu");
@@ -196,8 +200,45 @@ public class JavaFXTemplate extends Application {
 	}
 	
 	private void buildBetCard(Stage stage) {
-		System.out.println("inside build bet card");
-	}
+
+
+
+		GridPane gp = new GridPane();
+
+		for (int i = 0; i < 80; i++) {
+			int index = i+1;
+			Button button = new Button(Integer.toString(index));
+			button.setMinWidth(35);
+			gp.setPadding(new Insets(10));
+			gp.setHgap(10);
+			gp.setVgap(10);
+			gp.add(button, i % 8, i / 8);
+
+			// lambda expression
+			// addPick(i+1)
+
+			EventHandler<ActionEvent> buttonEvent = e -> { game.addPick(index);};
+
+		}
+
+		MenuBar mb = buildMenu2(stage);
+		VBox vbMenu = new VBox(mb);
+
+
+
+		BorderPane bp = new BorderPane(gp);
+
+		bp.setTop(vbMenu);
+
+		gp.setAlignment(Pos.CENTER);
+
+
+
+		rootPane = bp;
+		Scene startPage = new Scene(bp, DIMX, DIMY);
+		stage.setScene(startPage);
+		stage.show();
+		}
 	
 	private void buildRules(Stage stage) {
 

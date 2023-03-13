@@ -20,6 +20,10 @@ public class Keno {
 	private void countMatches() {
 		
 	}
+
+	public void addPick(int i) {
+		p.addPick(i);
+	}
 	
 	private void randDraw() {
 		
