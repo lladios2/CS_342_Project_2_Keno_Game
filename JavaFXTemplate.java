@@ -10,7 +10,6 @@
 
 import java.util.ArrayList;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import javafx.application.Application;
@@ -139,6 +138,7 @@ public class JavaFXTemplate extends Application {
 		return menuBar;
 	}
 
+
 	// buildMenu2: build menu for UI where play button is now included
 	private MenuBar buildMenu2(Stage stage) {
 
@@ -201,14 +201,15 @@ public class JavaFXTemplate extends Application {
 		currColor++;
 		
 	}
-	
+
+
 	private void buildBetCard(Stage stage) {
 		boolean nDraws = true;
 		boolean nPlays = true;
 		boolean disableGrid = true;
 
 		int numPlays = 0;
-
+		int numDraws = 0;
 		Text plays = new Text("How many spots do you want to play?");
 		plays.setFont(new Font(15));
 
@@ -229,12 +230,12 @@ public class JavaFXTemplate extends Application {
 		HBox playHB = new HBox(30, play1, play4, play8, play10);
 		playHB.setAlignment(Pos.CENTER);
 
-		/*
+
 		// Event handlers for plays
-		EventHandler<ActionEvent> play1Event = e -> { nPlays = false;};
-		EventHandler<ActionEvent> play4Event = e -> { nPlays.set(false);};
-		EventHandler<ActionEvent> play8Event = e -> { nPlays.set(false);};
-		EventHandler<ActionEvent> play10Event = e -> { nPlays.set(false);};
+		EventHandler<ActionEvent> play1Event = e -> { ;};
+		EventHandler<ActionEvent> play4Event = e -> { ;};
+		EventHandler<ActionEvent> play8Event = e -> { ;};
+		EventHandler<ActionEvent> play10Event = e -> { ;};
 
 
 		// Play setOnAction
@@ -242,7 +243,7 @@ public class JavaFXTemplate extends Application {
 		play4.setOnAction(play4Event);
 		play8.setOnAction(play8Event);
 		play10.setOnAction(play10Event);
-		*/
+
 
 		// Draws
 		Text draws = new Text("How many consecutive draws do you want to play?");
@@ -264,12 +265,13 @@ public class JavaFXTemplate extends Application {
 		HBox drawsHB = new HBox(30, draw1, draw2, draw3, draw4);
 		drawsHB.setAlignment(Pos.CENTER);
 
-		/*
+
 		// Event handlers for draws
-		EventHandler<ActionEvent> draw1Event = e -> { nDraws = (false);};
-		EventHandler<ActionEvent> draw2Event = e -> { nDraws.set(false);};
-		EventHandler<ActionEvent> draw3Event = e -> { nPlays.set(false);};
-		EventHandler<ActionEvent> draw4Event = e -> { nPlays.set(false);};
+		EventHandler<ActionEvent> draw1Event = e -> { nDraws = false;
+		                                              numDraws = 1; };
+		EventHandler<ActionEvent> draw2Event = e -> { activateButtons(nDraws);};
+		EventHandler<ActionEvent> draw3Event = e -> { activateButtons(nDraws);};
+		EventHandler<ActionEvent> draw4Event = e -> { activateButtons(nDraws);};
 
 
 
@@ -278,7 +280,6 @@ public class JavaFXTemplate extends Application {
 		draw2.setOnAction(draw2Event);
 		draw3.setOnAction(draw3Event);
 		draw4.setOnAction(draw4Event);
-		*/
 
 
 		// draw numbers for me
@@ -300,7 +301,7 @@ public class JavaFXTemplate extends Application {
 			gp.setVgap(10);
 
 			// disabled until user picks their numbers
-			// disableGrid = nPlays && nDraws;
+			disableGrid = nPlays[0] && nDraws;
 			button.setDisable(disableGrid);
 
 			gp.add(button, i % 8, i / 8);
