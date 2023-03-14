@@ -200,43 +200,145 @@ public class JavaFXTemplate extends Application {
 	}
 	
 	private void buildBetCard(Stage stage) {
+		boolean nDraws = true;
+		boolean nPlays = true;
+		boolean disableGrid = true;
+
+		int numPlays = 0;
+
+		Text plays = new Text("How many spots do you want to play?");
+		plays.setFont(new Font(15));
+
+		HBox playTextVBox = new HBox(150, plays);
+		playTextVBox.setAlignment(Pos.CENTER);
+
+		Button play1 = new Button("1");
+		play1.setMinWidth(30);
+		Button play4 = new Button("4");
+		play4.setMinWidth(30);
+		Button play8 = new Button("8");
+		play8.setMinWidth(30);
+		Button play10 = new Button("10");
+		play10.setMinWidth(30);
 
 
 
+		HBox playHB = new HBox(30, play1, play4, play8, play10);
+		playHB.setAlignment(Pos.CENTER);
+
+		/*
+		// Event handlers for plays
+		EventHandler<ActionEvent> play1Event = e -> { nPlays = false;};
+		EventHandler<ActionEvent> play4Event = e -> { nPlays.set(false);};
+		EventHandler<ActionEvent> play8Event = e -> { nPlays.set(false);};
+		EventHandler<ActionEvent> play10Event = e -> { nPlays.set(false);};
+
+
+		// Play setOnAction
+		play1.setOnAction(play1Event);
+		play4.setOnAction(play4Event);
+		play8.setOnAction(play8Event);
+		play10.setOnAction(play10Event);
+		*/
+
+		// Draws
+		Text draws = new Text("How many consecutive draws do you want to play?");
+		draws.setFont(new Font(15));
+
+		VBox drawHB = new VBox (draws);
+		drawHB.setAlignment(Pos.CENTER);
+
+
+		Button draw1 = new Button("1");
+		draw1.setMinWidth(30);
+		Button draw2 = new Button("2");
+		draw2.setMinWidth(30);
+		Button draw3 = new Button("3");
+		draw3.setMinWidth(30);
+		Button draw4 = new Button("4");
+		draw4 .setMinWidth(30);
+
+		HBox drawsHB = new HBox(30, draw1, draw2, draw3, draw4);
+		drawsHB.setAlignment(Pos.CENTER);
+
+		/*
+		// Event handlers for draws
+		EventHandler<ActionEvent> draw1Event = e -> { nDraws = (false);};
+		EventHandler<ActionEvent> draw2Event = e -> { nDraws.set(false);};
+		EventHandler<ActionEvent> draw3Event = e -> { nPlays.set(false);};
+		EventHandler<ActionEvent> draw4Event = e -> { nPlays.set(false);};
+
+
+
+		// Play setOnAction
+		draw1.setOnAction(draw1Event);
+		draw2.setOnAction(draw2Event);
+		draw3.setOnAction(draw3Event);
+		draw4.setOnAction(draw4Event);
+		*/
+
+
+		// draw numbers for me
+
+		Button random = new Button("Pick Numbers for Me");
+		EventHandler<ActionEvent> randomEvent = e -> { System.out.println("Randomize"); };
+		random.setOnAction(randomEvent);
+
+		VBox randomVB = new VBox(random);
+		randomVB.setAlignment(Pos.CENTER);
 		GridPane gp = new GridPane();
 
 		for (int i = 0; i < 80; i++) {
 			int index = i+1;
 			Button button = new Button(Integer.toString(index));
-			button.setMinWidth(35);
+			button.setMinWidth(30);
 			gp.setPadding(new Insets(10));
 			gp.setHgap(10);
 			gp.setVgap(10);
+
+			// disabled until user picks their numbers
+			// disableGrid = nPlays && nDraws;
+			button.setDisable(disableGrid);
+
 			gp.add(button, i % 8, i / 8);
 
-			// lambda expression
-			// addPick(i+1)
 
-			EventHandler<ActionEvent> buttonEvent = e -> { game.addPick(index);};
+			EventHandler<ActionEvent> buttonEvent = e -> { game.addPick(index);
+				                                           button.setDisable(true);
+														   System.out.println("Button pressed"); };
 
+			button.setOnAction(buttonEvent);
 		}
+
+		Button drawNum = new Button("Draw Numbers");
+		EventHandler<ActionEvent> drawNumEvent = e -> { System.out.println("Draw Numbers"); };
+		random.setOnAction(drawNumEvent);
+
+		VBox drawNumVB = new VBox(drawNum);
+		drawNumVB.setAlignment(Pos.CENTER);
 
 		MenuBar mb = buildMenu2(stage);
 		VBox vbMenu = new VBox(mb);
 
+		VBox options  = new VBox(10, playTextVBox, playHB, drawHB, drawsHB, randomVB);
+
+		VBox vb = new VBox(10, options, gp, drawNumVB);
+
+		HBox hb = new HBox( 100, vb);
 
 
-		BorderPane bp = new BorderPane(gp);
+		BorderPane bp = new BorderPane(hb);
 
+		bp.setCenter(hb);
 		bp.setTop(vbMenu);
 
-		gp.setAlignment(Pos.CENTER);
+		hb.setAlignment(Pos.CENTER);
+		hb.setPadding(new Insets(50, 0, 0, 0));
 
 
+		Scene playPage = new Scene(bp, DIMX, DIMY);
 
-		rootPane = bp;
-		Scene startPage = new Scene(bp, DIMX, DIMY);
-		stage.setScene(startPage);
+		stage.setScene(playPage);
 		stage.show();
 		}
 	
@@ -244,8 +346,6 @@ public class JavaFXTemplate extends Application {
 
 		Text heading = new Text("Rules");
 		heading.setFont(Font.font("Arial", FontWeight.BOLD, 15));
-	
-
 		Text ruleText = new Text("\n" +
 				"Wager by choosing a set amount of numbers (pick 2 numbers, pick 10 numbers, etc) ranging from 1-80.\n" +
 				"The player can choose to have the numbers randomly generated.\n" +
